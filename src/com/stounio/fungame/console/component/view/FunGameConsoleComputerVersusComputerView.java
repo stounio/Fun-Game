@@ -7,8 +7,7 @@ import static com.stounio.fungame.resource.FunGameConstants.HELP_COMMAND;
 import static com.stounio.fungame.resource.FunGameConstants.RESTART_COMMAND;
 import static com.stounio.fungame.resource.FunGameConstants.SECTION_SEPARATOR;
 
-import java.util.Scanner;
-
+import com.stounio.fungame.console.FunGameConsoleIOService;
 import com.stounio.fungame.console.component.FunGameConsoleComponent;
 import com.stounio.fungame.console.component.FunGameConsoleComponentParameter;
 import com.stounio.fungame.console.component.FunGameConsoleComponentResult;
@@ -27,9 +26,11 @@ public class FunGameConsoleComputerVersusComputerView implements FunGameConsoleC
     }
 
     private void internalDisplay() {
-        System.out.println(SECTION_SEPARATOR);
-        System.out.println(ResourceService.getService().getResource(FUNGAME_COMPUTER_VERSUS_COMPUTER_MODE_TITLE_KEY));
-        System.out.println(SECTION_SEPARATOR);
+        FunGameConsoleIOService funGameConsoleIOService = FunGameConsoleIOService.getService();
+        funGameConsoleIOService.println(SECTION_SEPARATOR);
+        funGameConsoleIOService.println(ResourceService.getService().getResource(
+                FUNGAME_COMPUTER_VERSUS_COMPUTER_MODE_TITLE_KEY));
+        funGameConsoleIOService.println(SECTION_SEPARATOR);
     }
 
     private void displayDefaultCommands(FunGameConsoleComponentParameter parameter) {
@@ -39,9 +40,9 @@ public class FunGameConsoleComputerVersusComputerView implements FunGameConsoleC
 
     private FunGameConsoleComponentResult readPlayerInput() {
         try {
-            System.out.println(ResourceService.getService().getResource(FUNGAME_MENU_CHOICE_KEY));
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine();
+            FunGameConsoleIOService funGameConsoleIOService = FunGameConsoleIOService.getService();
+            funGameConsoleIOService.println(ResourceService.getService().getResource(FUNGAME_MENU_CHOICE_KEY));
+            String input = FunGameConsoleIOService.getService().nextLine();
             if (HELP_COMMAND.equals(input)) {
                 return new FunGameConsoleComponentResult(new FunGameConsoleComputerVersusComputerHelpView(), null);
             }

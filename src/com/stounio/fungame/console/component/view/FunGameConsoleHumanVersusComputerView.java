@@ -8,8 +8,8 @@ import static com.stounio.fungame.resource.FunGameConstants.RESTART_COMMAND;
 import static com.stounio.fungame.resource.FunGameConstants.SECTION_SEPARATOR;
 
 import java.util.List;
-import java.util.Scanner;
 
+import com.stounio.fungame.console.FunGameConsoleIOService;
 import com.stounio.fungame.console.component.FunGameConsoleComponent;
 import com.stounio.fungame.console.component.FunGameConsoleComponentParameter;
 import com.stounio.fungame.console.component.FunGameConsoleComponentResult;
@@ -32,13 +32,15 @@ public class FunGameConsoleHumanVersusComputerView implements FunGameConsoleComp
     }
 
     private void internalDisplay() {
-        System.out.println(SECTION_SEPARATOR);
-        System.out.println(ResourceService.getService().getResource(FUNGAME_HUMAN_VERSUS_COMPUTER_MODE_TITLE_KEY));
-        System.out.println(SECTION_SEPARATOR);
+        FunGameConsoleIOService funGameConsoleIOService = FunGameConsoleIOService.getService();
+        funGameConsoleIOService.println(SECTION_SEPARATOR);
+        funGameConsoleIOService.println(ResourceService.getService().getResource(
+                FUNGAME_HUMAN_VERSUS_COMPUTER_MODE_TITLE_KEY));
+        funGameConsoleIOService.println(SECTION_SEPARATOR);
         GamePlayService gamePlayService = GamePlayServiceFactory.getFactory().getInstance();
         List<GamePlayOption> gamePlayOptions = gamePlayService.getGamePlayOptions();
         for (GamePlayOption gamePlayOption : gamePlayOptions) {
-            System.out.println("- '" + gamePlayOption.getIdentifier() + "'");
+            funGameConsoleIOService.println("- '" + gamePlayOption.getIdentifier() + "'");
         }
     }
 
@@ -49,9 +51,9 @@ public class FunGameConsoleHumanVersusComputerView implements FunGameConsoleComp
 
     private FunGameConsoleComponentResult readPlayerInput() {
         try {
-            System.out.println(ResourceService.getService().getResource(FUNGAME_MENU_CHOICE_KEY));
-            Scanner scanner = new Scanner(System.in);
-            String input = scanner.nextLine();
+            FunGameConsoleIOService funGameConsoleIOService = FunGameConsoleIOService.getService();
+            funGameConsoleIOService.println(ResourceService.getService().getResource(FUNGAME_MENU_CHOICE_KEY));
+            String input = FunGameConsoleIOService.getService().nextLine();
             if (HELP_COMMAND.equals(input)) {
                 return new FunGameConsoleComponentResult(new FunGameConsoleHumanVersusComputerHelpView(), null);
             }
