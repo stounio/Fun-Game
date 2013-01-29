@@ -26,12 +26,6 @@ public class GamePlayServiceTest {
 		gamePlayService.intialize();
 	}
 
-	@Test(expected=IllegalStateException.class)
-	public void should_not_be_able_to_play_before_initializing_the_player_mode(){
-		GamePlayService gamePlayService = GamePlayServiceFactory.getFactory().getInstance();
-		gamePlayService.play(ROCK_GAME_PLAY_OPTION);
-	}
-	
 	@Test
 	public void should_be_able_to_play_human_versus_computer(){
 		GamePlayService gamePlayService = GamePlayServiceFactory.getFactory().getInstance();
