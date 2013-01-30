@@ -7,26 +7,27 @@ import com.stounio.fungame.factory.GamePlayServiceFactory;
  */
 public class FunGameConsole {
 
-    public static void main(String[] args) {
-        initializeGameService();
-        try {
-            startGame();
-        } catch (Exception e) {
-            exitWithErrors(e);
-        }
+  public static void main(String[] args) {
+    initializeGameService();
+    try {
+      // Prevent the user from starting the game when it has not correctly intialized.
+      startGame();
+    } catch (Exception e) {
+      exitWithErrors(e);
     }
+  }
 
-    private static void initializeGameService() {
-        GamePlayServiceFactory.getFactory().getInstance();
-    }
+  private static void initializeGameService() {
+    GamePlayServiceFactory.getFactory().getInstance();
+  }
 
-    private static void startGame() {
-        FunGameConsoleController.getController().startGame();
-    }
+  private static void startGame() {
+    FunGameConsoleController.getController().startGame();
+  }
 
-    private static void exitWithErrors(Exception e) {
-        FunGameConsoleIOService.getService().println(e.getMessage());
-        e.printStackTrace();
-        System.exit(-1);
-    }
+  private static void exitWithErrors(Exception e) {
+    FunGameConsoleIOService.getService().println(e.getMessage());
+    e.printStackTrace();
+    System.exit(-1);
+  }
 }
